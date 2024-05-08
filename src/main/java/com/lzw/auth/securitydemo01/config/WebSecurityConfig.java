@@ -13,10 +13,28 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
-    @Bean
+    /**
+     * 基于内存的用户认证
+     * @return
+     */
+
+/*    @Bean
     public UserDetailsService userDetailsService() {
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
         manager.createUser(User.withDefaultPasswordEncoder().username("user").password("password").roles("USER").build());
+        return manager;
+    }*/
+
+
+    /**
+     * 基于数据库的用户认证
+     * @return
+     */
+    @Bean
+    public UserDetailsService userDetailsService() {
+        //测试：使用数据库中配置的用户名和密码进行登录
+        //或者直接在DBUserDetailsManager类上添加@Component注解
+        DBUserDetailsManager manager = new DBUserDetailsManager();
         return manager;
     }
 }
