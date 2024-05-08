@@ -35,7 +35,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
+        <!--swagger测试-->
+<!--     http://localhost:8080/doc.html   -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>4.1.0</version>
+        </dependency>
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>

@@ -36,6 +36,11 @@ public class WebSecurityConfig {
                 .formLogin(withDefaults())//表单授权方式
                 .httpBasic(withDefaults());//基本授权方式
 
+
+            //关闭csrf攻击防御,post请求会有这种情况
+            http.csrf((csrf) -> {
+                csrf.disable();
+            });
         return http.build();
     }
 
@@ -58,11 +63,11 @@ public class WebSecurityConfig {
      * 基于数据库的用户认证
      * @return
      */
-    @Bean
-    public UserDetailsService userDetailsService() {
-        //测试：使用数据库中配置的用户名和密码进行登录
-        //或者直接在DBUserDetailsManager类上添加@Component注解
-        DBUserDetailsManager manager = new DBUserDetailsManager();
-        return manager;
-    }
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        //测试：使用数据库中配置的用户名和密码进行登录
+//        //或者直接在DBUserDetailsManager类上添加@Component注解
+//        DBUserDetailsManager manager = new DBUserDetailsManager();
+//        return manager;
+//    }
 }
