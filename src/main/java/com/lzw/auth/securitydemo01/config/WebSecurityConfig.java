@@ -4,14 +4,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.*;
 import org.springframework.security.config.annotation.authentication.builders.*;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.*;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
+
+
+    /**
+     * 这个是默认的，可以不写在
+     * 在这个EnableWebSecurity里是写了的
+     * 这个是过滤器链
+     * @param http
+     * @return
+     * @throws Exception
+     */
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        //authorizeRequests()：开启授权保护
+        //anyRequest()：对所有请求开启授权保护
+        //authenticated()：已认证请求会自动被授权
+        http
+                .authorizeRequests(authorize -> authorize.anyRequest().authenticated())
+                .formLogin(withDefaults())//表单授权方式
+                .httpBasic(withDefaults());//基本授权方式
+
+        return http.build();
+    }
+
+
 
     /**
      * 基于内存的用户认证
