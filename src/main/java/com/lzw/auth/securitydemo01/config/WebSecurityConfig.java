@@ -65,6 +65,12 @@ public class WebSecurityConfig {
         //跨域
         http.cors(withDefaults());
 
+        //会话管理  后登录的账号会使先登录的账号失效
+        http.sessionManagement(session -> {
+            session
+                    .maximumSessions(1)
+                    .expiredSessionStrategy(new MySessionInformationExpiredStrategy());
+        });
         return http.build();
     }
 
