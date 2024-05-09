@@ -48,6 +48,7 @@ public class WebSecurityConfig {
                     .usernameParameter("username") //自定义表单用户名参数，默认是username
                     .passwordParameter("password") //自定义表单密码参数，默认是password
                     .failureUrl("/login?error") //登录失败的返回地址
+                    .successHandler(new MyAuthenticationSuccessHandler()) //认证成功时的处理
             ;
         }); //使用表单授权方式
         return http.build();
