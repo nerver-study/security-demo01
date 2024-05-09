@@ -61,6 +61,10 @@ public class WebSecurityConfig {
         http.exceptionHandling(exception  -> {
             exception.authenticationEntryPoint(new MyAuthenticationEntryPoint());//请求未认证的接口
         });
+
+        //跨域
+        http.cors(withDefaults());
+
         return http.build();
     }
 
