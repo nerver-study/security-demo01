@@ -56,6 +56,11 @@ public class WebSecurityConfig {
         http.logout(logout -> {
             logout.logoutSuccessHandler(new MyLogoutSuccessHandler()); //注销成功时的处理
         });
+
+        //错误处理
+        http.exceptionHandling(exception  -> {
+            exception.authenticationEntryPoint(new MyAuthenticationEntryPoint());//请求未认证的接口
+        });
         return http.build();
     }
 
