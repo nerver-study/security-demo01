@@ -33,7 +33,7 @@ public class WebSecurityConfig {
         //authenticated()：已认证请求会自动被授权
         http
                 .authorizeRequests(authorize -> authorize.anyRequest().authenticated())
-                .formLogin(withDefaults())//表单授权方式
+//                .formLogin(withDefaults())//表单授权方式
                 .httpBasic(withDefaults());//基本授权方式
 
 
@@ -41,6 +41,15 @@ public class WebSecurityConfig {
             http.csrf((csrf) -> {
                 csrf.disable();
             });
+
+        http.formLogin( form -> {
+            form
+                    .loginPage("/login").permitAll() //登录页面无需授权即可访问
+                    .usernameParameter("username") //自定义表单用户名参数，默认是username
+                    .passwordParameter("password") //自定义表单密码参数，默认是password
+                    .failureUrl("/login?error") //登录失败的返回地址
+            ;
+        }); //使用表单授权方式
         return http.build();
     }
 
