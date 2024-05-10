@@ -66,12 +66,21 @@ public class DBUserDetailsManager implements UserDetailsManager, UserDetailsPass
             return org.springframework.security.core.userdetails.User
                     .withUsername(user.getUsername())
                     .password(user.getPassword())
+                    .roles("ADMIN")
+//                    .authorities("USER_ADD", "USER_UPDATE")  //与上面的 .roles("ADMIN")不可同时使用
                     .credentialsExpired(false)
                     .accountLocked(false)
                     .disabled(!user.getEnabled())
-//                    .roles("ADMIN")
-                    .roles("User")
                     .build();
+//            return org.springframework.security.core.userdetails.User
+//                    .withUsername(user.getUsername())
+//                    .password(user.getPassword())
+//                    .credentialsExpired(false)
+//                    .accountLocked(false)
+//                    .disabled(!user.getEnabled())
+////                    .roles("ADMIN")
+//                    .roles("User")
+//                    .build();
         }
     }
 

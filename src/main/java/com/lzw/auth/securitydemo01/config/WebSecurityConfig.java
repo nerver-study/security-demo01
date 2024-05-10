@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.*;
 import org.springframework.security.config.annotation.authentication.builders.*;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.*;
 import org.springframework.security.core.userdetails.User;
@@ -18,6 +19,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity//开启基于方法的授权
 public class WebSecurityConfig {
 
 
@@ -60,18 +62,18 @@ public class WebSecurityConfig {
 //                        .authenticated()
 //        );
         //开启授权保护
-        http.authorizeRequests(
-                authorize -> authorize
-                        //具有管理员角色的用户可以访问/user/**
-                        .requestMatchers("/user/**").hasRole("ADMIN")
-                        //对所有请求开启授权保护
-                        .anyRequest()
-                        //已认证的请求会被自动授权
-                        .authenticated()
-        );
+//        http.authorizeRequests(
+//                authorize -> authorize
+//                        //具有管理员角色的用户可以访问/user/**
+//                        .requestMatchers("/user/**").hasRole("ADMIN")
+//                        //对所有请求开启授权保护
+//                        .anyRequest()
+//                        //已认证的请求会被自动授权
+//                        .authenticated()
+//        );
         http.formLogin( form -> {
             form
-                    .loginPage("/login").permitAll() //登录页面无需授权即可访问
+//                    .loginPage("/login").permitAll() //登录页面无需授权即可访问
                     .usernameParameter("username") //自定义表单用户名参数，默认是username
                     .passwordParameter("password") //自定义表单密码参数，默认是password
                     .failureUrl("/login?error") //登录失败的返回地址
