@@ -48,12 +48,22 @@ public class WebSecurityConfig {
 
 
         //开启授权保护
+//        http.authorizeRequests(
+//                authorize -> authorize
+//                        //具有USER_LIST权限的用户可以访问/user/list
+//                        .requestMatchers("/user/list").hasAuthority("USER_LIST")
+//                        //具有USER_ADD权限的用户可以访问/user/add
+//                        .requestMatchers("/user/add").hasAuthority("USER_ADD")
+//                        //对所有请求开启授权保护
+//                        .anyRequest()
+//                        //已认证的请求会被自动授权
+//                        .authenticated()
+//        );
+        //开启授权保护
         http.authorizeRequests(
                 authorize -> authorize
-                        //具有USER_LIST权限的用户可以访问/user/list
-                        .requestMatchers("/user/list").hasAuthority("USER_LIST")
-                        //具有USER_ADD权限的用户可以访问/user/add
-                        .requestMatchers("/user/add").hasAuthority("USER_ADD")
+                        //具有管理员角色的用户可以访问/user/**
+                        .requestMatchers("/user/**").hasRole("ADMIN")
                         //对所有请求开启授权保护
                         .anyRequest()
                         //已认证的请求会被自动授权
