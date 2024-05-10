@@ -1,5 +1,6 @@
 package com.lzw.auth.securitydemo01.config;
 
+import com.alibaba.fastjson2.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.*;
@@ -10,6 +11,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+import java.util.HashMap;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -32,7 +35,7 @@ public class WebSecurityConfig {
         //anyRequest()：对所有请求开启授权保护
         //authenticated()：已认证请求会自动被授权
         http
-                .authorizeRequests(authorize -> authorize.anyRequest().authenticated())
+//                .authorizeRequests(authorize -> authorize.anyRequest().authenticated())//任何用户都可以请求
 //                .formLogin(withDefaults())//表单授权方式
                 .httpBasic(withDefaults());//基本授权方式
 
@@ -42,6 +45,20 @@ public class WebSecurityConfig {
                 csrf.disable();
             });
 
+
+
+        //开启授权保护
+        http.authorizeRequests(
+                authorize -> authorize
+                        //具有USER_LIST权限的用户可以访问/user/list
+                        .requestMatchers("/user/list").hasAuthority("USER_LIST")
+                        //具有USER_ADD权限的用户可以访问/user/add
+                        .requestMatchers("/user/add").hasAuthority("USER_ADD")
+                        //对所有请求开启授权保护
+                        .anyRequest()
+                        //已认证的请求会被自动授权
+                        .authenticated()
+        );
         http.formLogin( form -> {
             form
                     .loginPage("/login").permitAll() //登录页面无需授权即可访问
