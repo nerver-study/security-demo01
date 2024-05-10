@@ -69,7 +69,8 @@ public class DBUserDetailsManager implements UserDetailsManager, UserDetailsPass
                     .credentialsExpired(false)
                     .accountLocked(false)
                     .disabled(!user.getEnabled())
-                    .roles("ADMIN")
+//                    .roles("ADMIN")
+                    .roles("User")
                     .build();
         }
     }
