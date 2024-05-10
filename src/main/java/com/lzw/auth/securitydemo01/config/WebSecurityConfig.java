@@ -77,6 +77,20 @@ public class WebSecurityConfig {
         //错误处理
         http.exceptionHandling(exception  -> {
             exception.authenticationEntryPoint(new MyAuthenticationEntryPoint());//请求未认证的接口
+            exception.accessDeniedHandler((request, response, e)->{ //请求未授权的接口
+
+                //创建结果对象
+                HashMap result = new HashMap();
+                result.put("code", -1);
+                result.put("message", "没有权限");
+
+                //转换成json字符串
+                String json = JSON.toJSONString(result);
+
+                //返回响应
+                response.setContentType("application/json;charset=UTF-8");
+                response.getWriter().println(json);
+            });
         });
 
         //跨域
