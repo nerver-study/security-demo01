@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: oauth2-login-demo
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: Ov23liZii9HaUftmOto5
+            client-secret: b01869d873af83a4d4e57d16e0147e8cb7377a97
+#            redirectUri: http://localhost:8200/login/oauth2/code/github
